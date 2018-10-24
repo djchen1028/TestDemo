@@ -33,28 +33,28 @@ public class myCrawler {
             webClient.close();
             sumLables = myCrawler.countDocumentElements(htmlPage.getDocumentElement());//统计标签总数.
             System.out.println("标签数"+sumLables);
-                while((buffer = br.readLine())!=null){
-                    pw.println(buffer);
-                    //System.out.println(buffer);
-                    while(buffer.indexOf("<")!=-1){//获取每次读取页面的标签数量累加
-                        if(buffer.startsWith("//")==true){
-                            break;
-                        }
-                        int i = buffer.indexOf("<");
-                        labels++;
-                        buffer=buffer.substring(i+1);
-                    }
-                }
-            } catch (Exception e) {
-                System.out.println(e.toString());
-            } finally {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                pw.close();
-                System.out.print(labels/2);
-            }
+//                while((buffer = br.readLine())!=null){
+//                    pw.println(buffer);
+//                    //System.out.println(buffer);
+//                    while(buffer.indexOf("<")!=-1){//获取每次读取页面的标签数量累加
+//                        if(buffer.startsWith("//")==true){
+//                            break;
+//                        }
+//                        int i = buffer.indexOf("<");
+//                        labels++;
+//                        buffer=buffer.substring(i+1);
+//                    }
+//                }
+//            } catch (Exception e) {
+//                System.out.println(e.toString());
+//            } finally {
+//                try {
+//                    br.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                pw.close();
+//                System.out.print(labels/2);
+//            }
     }
 }
