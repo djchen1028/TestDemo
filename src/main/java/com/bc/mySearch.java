@@ -130,8 +130,8 @@ class MySQL{
     private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String DB_URL= "jdbc:mysql://localhost:3306/demo_project?useSSL=false&serverTimezone=UTC";
 
-    private static final String USERNAME = "root";
-    private static final String PASS="dj_chen1028";
+    private static final String USERNAME = "";
+    private static final String PASS="";
     private static String tablename;
 
     public Connection ConnectDB() throws SQLException {
