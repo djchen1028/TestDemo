@@ -18,14 +18,16 @@ import static java.lang.System.in;
 import static java.lang.System.out;
 
 public class JsoupBD {
-    public static void main(String[] args) throws Exception{
+    private static boolean isEndPage=false;
 
+    public static void main(String[] args) throws Exception{
+        out.print("请输入搜索内容：");
         BufferedReader br = new BufferedReader(new InputStreamReader(in));
         String keyword = br.readLine();
         String url ;
         String sql="";
         String kw = URLEncoder.encode(keyword,"utf-8");
-        for(int i=0;i<=230;i=i+10){
+        for(int i =0;i<=60;i=i+10){
             url = "https://www.baidu.com/s?wd="+kw+"&pn="+i;
             out.println(url);
             sql = sql+getPageHtmltoInsertData(url);
@@ -57,6 +59,7 @@ public class JsoupBD {
             }
             sql=sql+ "('" + text + "','" + url + "'),";
         }
+
         return sql;
     }
 }
