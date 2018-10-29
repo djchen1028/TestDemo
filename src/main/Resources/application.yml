@@ -1,0 +1,11 @@
+spring:
+  profiles: default
+  freemarker:
+    template-loader-path: classpath:/ftl
+    cache: true
+    check-template-location: true
+    content-type: text/html; charset=UTF-8
+    expose-request-attributes: true
+    expose-session-attributes: true
+    request-context-attribute: request
+    suffix: .ftl
