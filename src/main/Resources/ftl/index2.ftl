@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>爬虫结果-${str}</title>
 </head>
 <body>
 <div>
