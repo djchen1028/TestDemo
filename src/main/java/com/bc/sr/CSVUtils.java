@@ -1,14 +1,48 @@
 package com.bc.sr;
 
+import com.csvreader.CsvWriter;
 import org.apache.commons.beanutils.BeanUtils;
 
 import java.io.*;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 
 public class CSVUtils {
+    private static String[] HEADERS={"id","keyword","URL"};
 
+    public static void main(String[] args){
+        List<String[]> dataLists = new ArrayList<String[]>();
+        String[] shanghai = {"1","shanghai","aaaaaa"};
+        String[] beijing = {"2","beijing","bbbbbb"};
+        String[] suzhou = {"3","suzhou","cccccc"};
+        dataLists.add(shanghai);
+        dataLists.add(beijing);
+        dataLists.add(suzhou);
+        CSVUtils.write("city",dataLists);
+    }
+
+    public static void write(String fileName, List<String[]> dataLists){
+        String filePath = "src/main/Resources/Downloads/"+fileName+".csv";
+
+        CsvWriter csvWrite = new CsvWriter(filePath,',', Charset.forName("GBK"));
+        try{
+            csvWrite.writeRecord(HEADERS);
+            for(String[] datalist:dataLists){
+                csvWrite.writeRecord(datalist);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            csvWrite.close();
+        }
+    }
+
+
+    /*手动创建CSV文件*/
     public static File createCSVFile(List exportData, LinkedHashMap map, String outPutPath, String fileName){
         File csvFile = null;
         BufferedWriter csvFileOutputStream = null;
@@ -21,9 +55,7 @@ public class CSVUtils {
             csvFile = File.createTempFile(fileName, ".csv", new File(outPutPath));
             System.out.println("csvFile：" + csvFile);
             // UTF-8使正确读取分隔符","
-            csvFileOutputStream = new BufferedWriter(
-                    new OutputStreamWriter(
-                            new FileOutputStream(csvFile), "UTF-8"),1024);
+            csvFileOutputStream = new BufferedWriter( new OutputStreamWriter(new FileOutputStream(csvFile), "UTF-8"),1024);
             System.out.println("csvFileOutputStream：" + csvFileOutputStream);
             // 写入文件头部
             for (Iterator propertyIterator = map.entrySet().iterator();
