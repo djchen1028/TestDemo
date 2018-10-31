@@ -6,6 +6,11 @@
 </head>
 <body>
 <div>
-    <p align="center" style="color: blue;">${str}</p>
+    <h2 style="color: darkred;">获得 ${str} 爬取结果${count}条，显示前20条记录</h2>
+        <#list links as link>
+            <h3>
+                <a href="${link.URL}">${link.keyword}</a>
+            </h3>
+        </#list>
 </div>
 </body>

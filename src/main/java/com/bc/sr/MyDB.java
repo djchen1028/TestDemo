@@ -1,16 +1,13 @@
 package com.bc.sr;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ResourceBundle;
+import java.sql.*;
+import java.util.*;
 
 public class MyDB {
 
     protected Connection conn;
 
-    public MyDB() throws SQLException {
+    public MyDB() {
         String JDBC_DRIVER;
         String DB_URL;
         String USERNAME;
@@ -57,4 +54,37 @@ public class MyDB {
         }
     }
 
+    public  List<Map<String,Object>> getContent(String tablename) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        ResultSet rs = null;
+        List<Map<String,Object>> links =new ArrayList<Map<String,Object>>();
+        int results_size=0;
+        Statement stmt;
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("select count(*) as count from "+tablename);
+            while(rs.next()) {
+                results_size = rs.getInt("count");
+                map.put("results_size", results_size);
+                links.add(map);
+            }
+            rs = stmt.executeQuery("select * from " + tablename );
+            while (rs.next()) {
+                map = new HashMap<String,Object>();
+                map.put("keyword",rs.getString("keyword"));
+                map.put("URL",rs.getString("URL"));
+                links.add(map);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return links;
+    }
 }

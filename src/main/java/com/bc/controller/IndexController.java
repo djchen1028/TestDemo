@@ -3,13 +3,13 @@ package com.bc.controller;
 import com.bc.sr.JsoupBD;
 import com.bc.sr.MyDB;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.sql.SQLException;
+import java.util.*;
 
 import static java.lang.System.out;
 
@@ -17,10 +17,11 @@ import static java.lang.System.out;
 @RequestMapping("/index")
 public class IndexController {
     @RequestMapping("test")
-    public String test(HttpServletRequest httpServletRequest, Model model) throws IOException, SQLException {
+    public String test(HttpServletRequest httpServletRequest, Map<String, Object> map) throws IOException, SQLException {
 //        String s = "this is from Server";
         String s = httpServletRequest.getParameter("kw");
-        model.addAttribute("str", s);
+//        model.addAttribute("str", s);
+//        map.put("str","Tracy McGrady");
 
         String url;
         String sql = "";
@@ -36,7 +37,15 @@ public class IndexController {
         MyDB myDB = new MyDB();
         myDB.EstablishTable(s);
         myDB.commitInsert(sql);
-
+        MyDB getDataDB = new MyDB();
+        List<Map<String,Object>> links = new ArrayList<Map<String,Object>>();
+        links= getDataDB.getContent(kw);
+        int count = (int) links.get(0).get("results_size");
+        links.remove(0);
+//        links.subList(0,20);
+        map.put("str",s);
+        map.put("count",count);
+        map.put("links",links.subList(0,20));
         return "index2";
     }
 
