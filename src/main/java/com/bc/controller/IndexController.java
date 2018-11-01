@@ -20,30 +20,34 @@ public class IndexController {
     public String test(HttpServletRequest httpServletRequest, Map<String, Object> map) throws IOException, SQLException {
 //        String s = "this is from Server";
         String s = httpServletRequest.getParameter("kw");
+        if(s==null){
+            return "index";
+        }
 //        model.addAttribute("str", s);
 //        map.put("str","Tracy McGrady");
-
+        String tablename =s.replace(' ','_');
         String url;
         String sql = "";
         String kw = URLEncoder.encode(s, "utf-8");
-        for (int i = 0; i <= 60; i = i + 10) {
+        for (int i = 0; i <= 10; i = i + 10) {
             url = "https://www.baidu.com/s?wd=" + kw + "&pn=" + i;
             out.println(url);
             sql = sql + JsoupBD.getPageHtmltoInsertData(url);
         }
         sql = sql.substring(0, sql.length() - 1) + ";";
-        sql = "insert into " + s + "(keyword,URL) values" + sql;
+        sql = "insert into " + tablename + "(keyword,URL) values" + sql;
 
         MyDB myDB = new MyDB();
-        myDB.EstablishTable(s);
+        myDB.EstablishTable(tablename);
         myDB.commitInsert(sql);
         MyDB getDataDB = new MyDB();
         List<Map<String,Object>> links = new ArrayList<Map<String,Object>>();
-        links= getDataDB.getContent(kw);
+        links= getDataDB.getContent(tablename);
         int count = (int) links.get(0).get("results_size");
         links.remove(0);
 //        links.subList(0,20);
         map.put("str",s);
+        map.put("tablename",tablename);
         map.put("count",count);
         map.put("links",links.subList(0,20));
         return "index2";

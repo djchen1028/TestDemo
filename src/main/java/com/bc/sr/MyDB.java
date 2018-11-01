@@ -58,6 +58,7 @@ public class MyDB {
         Map<String, Object> map = new HashMap<String, Object>();
         ResultSet rs = null;
         List<Map<String,Object>> links =new ArrayList<Map<String,Object>>();
+        List<String[]> dataLists = new ArrayList<String[]>();
         int results_size=0;
         Statement stmt;
         try {
@@ -71,8 +72,13 @@ public class MyDB {
             rs = stmt.executeQuery("select * from " + tablename );
             while (rs.next()) {
                 map = new HashMap<String,Object>();
-                map.put("keyword",rs.getString("keyword"));
-                map.put("URL",rs.getString("URL"));
+                String[] data=new String[3];
+                data[0]=rs.getString("id");
+                data[1]=rs.getString("keyword");
+                data[2]=rs.getString("URL");
+                map.put("keyword",data[1]);
+                map.put("URL",data[2]);
+                dataLists.add(data);
                 links.add(map);
             }
         } catch (Exception e) {
@@ -85,6 +91,9 @@ public class MyDB {
                 e.printStackTrace();
             }
         }
+
+        CSVUtils.write(tablename,dataLists);
+
         return links;
     }
 }

@@ -25,7 +25,8 @@ public class CSVUtils {
     }
 
     public static void write(String fileName, List<String[]> dataLists){
-        String filePath = "src/main/Resources/Downloads/"+fileName+".csv";
+        String filePath = "E:/Java_Project/myCrawler_CsvFiles/"+fileName+".csv";
+
 
         CsvWriter csvWrite = new CsvWriter(filePath,',', Charset.forName("GBK"));
         try{
