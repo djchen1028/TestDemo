@@ -16,6 +16,7 @@ import static java.lang.System.out;
 @Controller
 @RequestMapping("/index")
 public class IndexController {
+
     @RequestMapping("test")
     public String test(HttpServletRequest httpServletRequest, Map<String, Object> map) throws IOException, SQLException {
 //        String s = "this is from Server";
@@ -29,7 +30,7 @@ public class IndexController {
         String url;
         String sql = "";
         String kw = URLEncoder.encode(s, "utf-8");
-        for (int i = 0; i <= 10; i = i + 10) {
+        for (int i = 0 ; JsoupBD.isEndPage == false; i = i + 10) {
             url = "https://www.baidu.com/s?wd=" + kw + "&pn=" + i;
             out.println(url);
             sql = sql + JsoupBD.getPageHtmltoInsertData(url);
