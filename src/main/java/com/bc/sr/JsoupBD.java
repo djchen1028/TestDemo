@@ -22,7 +22,7 @@ public class JsoupBD {
         String url;
         String sql = "";
         String kw = URLEncoder.encode(keyword, "utf-8");
-        for (int i = 0; isEndPage==false; i = i + 10) {
+        for (int i = 0; i<=30; i = i + 10) {
             url = "https://www.baidu.com/s?wd=" + kw + "&pn=" + i;
             out.println(url);
             sql = sql + getPageHtmltoInsertData(url);
@@ -38,7 +38,7 @@ public class JsoupBD {
 
     public static String getPageHtmltoInsertData(String Url) throws IOException {
         String sql = "";
-        String text;
+        String text = null;
         String url = "";
         Document doc = Jsoup.connect(Url).get();
         Element div = doc.getElementById("page");
@@ -47,16 +47,28 @@ public class JsoupBD {
         }
         Elements h3s = doc.getElementsByTag("h3");
         for (Element h3 : h3s) {
+            /**
+             *
+             *爬取百度搜索带广告的记录集
             out.println(h3.text());
             text = h3.text();
             text = text.replaceAll("'", "\\\\'");
             Elements anchors = h3.getElementsByTag("a");
+            */
+            /**
+             * 爬取百度搜索未带广告的记录集
+             */
+            Elements anchors = h3.select("a[data-click]");
             for (Element anchor : anchors) {
 //                out.println(anchor.attr("href"));
                 url = anchor.attr("href");
+                text = anchor.text();
+                out.println(text);
+                text = text.replaceAll("'", "\\\\'");
+                sql = sql + "('" + text + "','" + url + "'),";
                 break;
             }
-            sql = sql + "('" + text + "','" + url + "'),";
+//            sql = sql + "('" + text + "','" + url + "'),";
         }
 
         return sql;

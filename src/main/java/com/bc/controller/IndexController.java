@@ -19,13 +19,11 @@ public class IndexController {
 
     @RequestMapping("test")
     public String test(HttpServletRequest httpServletRequest, Map<String, Object> map) throws IOException, SQLException {
-//        String s = "this is from Server";
         String s = httpServletRequest.getParameter("kw");
+        JsoupBD.isEndPage=false;//初始化参数
         if(s==null){
             return "index";
         }
-//        model.addAttribute("str", s);
-//        map.put("str","Tracy McGrady");
         String tablename =s.replace(' ','_');
         String url;
         String sql = "";
@@ -50,7 +48,12 @@ public class IndexController {
         map.put("str",s);
         map.put("tablename",tablename);
         map.put("count",count);
-        map.put("links",links.subList(0,20));
+        if(links.size()>20) {
+            map.put("links", links.subList(0, 20));
+        }
+        else {
+            map.put("links",links);
+        }
         return "index2";
     }
 
