@@ -42,7 +42,7 @@ public class JsoupBD {
         String url = "";
         Document doc = Jsoup.connect(Url).get();
         Element div = doc.getElementById("page");
-        if(!div.text().contains("下一页")){
+        if(!div.text().contains("下一页")||div==null){
             isEndPage=true;
         }
         Elements h3s = doc.getElementsByTag("h3");

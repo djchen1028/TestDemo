@@ -31,8 +31,8 @@ public class MyDB {
         Statement stmt;
         try {
             stmt = conn.createStatement();
-            stmt.execute("DROP TABLE IF EXISTS " + tablename);
-            String sqlCreateTabel = "CREATE TABLE " + tablename + " (" +
+            stmt.execute("DROP TABLE IF EXISTS `" + tablename+"`");
+            String sqlCreateTabel = "CREATE TABLE `" + tablename + "` (" +
                     "id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY," +
                     "keyword varchar(200) NOT NULL," +
                     "URL varchar(2000));";
@@ -63,13 +63,13 @@ public class MyDB {
         Statement stmt;
         try {
             stmt = conn.createStatement();
-            rs = stmt.executeQuery("select count(*) as count from "+tablename);
+            rs = stmt.executeQuery("select count(*) as count from `"+tablename+"`");
             while(rs.next()) {
                 results_size = rs.getInt("count");
                 map.put("results_size", results_size);
                 links.add(map);
             }
-            rs = stmt.executeQuery("select * from " + tablename );
+            rs = stmt.executeQuery("select * from `" + tablename+"`" );
             while (rs.next()) {
                 map = new HashMap<String,Object>();
                 String[] data=new String[3];

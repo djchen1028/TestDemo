@@ -34,7 +34,7 @@ public class IndexController {
             sql = sql + JsoupBD.getPageHtmltoInsertData(url);
         }
         sql = sql.substring(0, sql.length() - 1) + ";";
-        sql = "insert into " + tablename + "(keyword,URL) values" + sql;
+        sql = "insert into `" + tablename + "`(keyword,URL) values" + sql;
 
         MyDB myDB = new MyDB();
         myDB.EstablishTable(tablename);
