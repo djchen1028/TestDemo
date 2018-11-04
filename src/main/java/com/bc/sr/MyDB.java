@@ -35,7 +35,7 @@ public class MyDB {
             String sqlCreateTabel = "CREATE TABLE `" + tablename + "` (" +
                     "id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY," +
                     "keyword varchar(200) NOT NULL," +
-                    "URL varchar(2000));";
+                    "URL varchar(2000)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
             stmt.execute(sqlCreateTabel);
         } catch (Exception e) {
             e.printStackTrace();

@@ -7,7 +7,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class FileConfig implements WebMvcConfigurer {
 //    private String filePath = "E:/Java_Project/myCrawler_CsvFiles/";
-    private String filePath = "/Users/dj_chen/IdeaProjects/WebFiles/";
+//    private String filePath = "/Users/dj_chen/IdeaProjects/WebFiles/";
+    private String filePath = "F:/Documents/IdeaProjects/WebFiles/";
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
