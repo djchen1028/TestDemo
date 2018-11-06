@@ -93,6 +93,7 @@ public class MyDB {
         }
 
         CSVUtils.write(tablename,dataLists);
+        ExcelUtil.writeExcel(tablename,dataLists);
 
         return links;
     }
