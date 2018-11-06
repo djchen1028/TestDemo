@@ -5,10 +5,7 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import java.io.*;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 public class CSVUtils {
     private static String[] HEADERS={"id","keyword","URL"};
@@ -25,9 +22,11 @@ public class CSVUtils {
     }
 
     public static void write(String fileName, List<String[]> dataLists){
-//        String filePath = "E:/Java_Project/myCrawler_CsvFiles/"+fileName+".csv";
+        ResourceBundle resource = ResourceBundle.getBundle("DBproperties");
+        String FILEPATH = resource.getString("FILEPATH");
+        String filePath = FILEPATH+fileName+".csv";
 //        String filePath = "/Users/dj_chen/IdeaProjects/WebFiles/"+fileName+".csv";
-        String filePath = "F:/Documents/IdeaProjects/WebFiles/"+fileName+".csv";
+//        String filePath = "F:/Documents/IdeaProjects/WebFiles/"+fileName+".csv";
 
         CsvWriter csvWrite = new CsvWriter(filePath,',', Charset.forName("GBK"));
         try{
